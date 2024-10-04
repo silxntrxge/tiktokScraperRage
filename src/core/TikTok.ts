@@ -379,7 +379,7 @@ export class TikTokScraper extends EventEmitter {
         });
     }
 
-    private returnInitError(error) {
+    private returnInitError(error: unknown) {
         if (this.cli && !this.bulk) {
             this.spinner.stop();
         }
@@ -1483,7 +1483,11 @@ export class TikTokScraper extends EventEmitter {
                 throw new Error('TikTok is asking for verification. Please solve the captcha manually.');
             }
         } catch (error) {
-            console.error(`Error checking TikTok availability: ${error.message}`);
+            if (error instanceof Error) {
+                console.error(`Error checking TikTok availability: ${error.message}`);
+            } else {
+                console.error('An unknown error occurred while checking TikTok availability');
+            }
             throw error;
         }
     }
@@ -1526,43 +1530,6 @@ export class TikTokScraper extends EventEmitter {
         // This should return the raw JSON string from the API
         throw new Error('Not implemented');
     }
-
-    private convertToPostCollector(video: TikTokVideo): PostCollector {
-        return {
-            id: video.aweme_id,
-            desc: video.title,
-            createTime: video.create_time,
-            video: {
-                id: video.video_id,
-                cover: video.cover,
-                playAddr: video.play,
-                downloadAddr: video.wmplay,
-                duration: video.duration,
-            },
-            author: {
-                id: video.author.id,
-                uniqueId: video.author.unique_id,
-                nickname: video.author.nickname,
-                avatarThumb: video.author.avatar,
-            },
-            music: {
-                id: video.music_info.id,
-                title: video.music_info.title,
-                playUrl: video.music_info.play,
-                coverThumb: video.music_info.cover,
-                authorName: video.music_info.author,
-                original: video.music_info.original,
-            },
-            stats: {
-                diggCount: video.digg_count,
-                shareCount: video.share_count,
-                commentCount: video.comment_count,
-                playCount: video.play_count,
-            },
-            // Add other fields as necessary
-        };
-    }
-}
 
     private convertToPostCollector(video: TikTokVideo): PostCollector {
         return {
