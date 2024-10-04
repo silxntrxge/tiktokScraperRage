@@ -22,6 +22,22 @@ import {
 import { constants } from './constant';
 import { makeVerifyFp } from './helpers';
 
+// Update your Options interface to include all the properties you're using:
+interface Options {
+    // ... other properties
+    proxyFile?: string;
+    proxy?: string;
+    sessionFile?: string;
+    sessionList?: string[];
+    // ... add other missing properties
+}
+
+// For the Result type:
+interface Result {
+    // ... other properties
+    headers?: any; // Or define a more specific type for headers
+}
+
 const getInitOptions = () => {
     return {
         number: 30,

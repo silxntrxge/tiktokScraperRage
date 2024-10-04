@@ -15,6 +15,7 @@ import cheerio from 'cheerio';
 import { CookieJar } from 'request';
 import { OptionsWithUri } from 'request-promise';
 import { DownloaderConstructor, DownloadParams, Proxy, Headers, PostCollector } from '../types';
+import MultipleBar from 'cli-progress'; // Make sure this package is installed
 
 export class Downloader {
     public progress: boolean;

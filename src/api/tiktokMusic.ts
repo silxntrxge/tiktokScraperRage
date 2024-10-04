@@ -1,7 +1,7 @@
 import express from 'express';
 import { Downloader } from '../core/Downloader';
 import { IncomingMessage } from 'http';
-import { request } from 'request';
+import request from 'request';
 
 const router = express.Router();
 
