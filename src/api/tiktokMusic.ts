@@ -1,9 +1,10 @@
 import express from 'express';
 import { Downloader } from '../core/Downloader';
+import { Request } from 'some-request-library'; // Replace with the actual library
 
 const router = express.Router();
 
-router.post('/tiktok-music', async (req, res) => {
+router.post('/tiktok-music', async (req: Request, res) => {
   try {
     const { username } = req.body;
     const downloader = new Downloader({

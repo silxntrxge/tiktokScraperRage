@@ -1,3 +1,5 @@
+export const SOME_CONSTANT = 'value';
+
 export = {
     scrape: [
         'user',

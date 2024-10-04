@@ -13,8 +13,9 @@ import EventEmitter from 'events';
 import { SocksProxyAgent } from 'socks-proxy-agent';
 import { forEachLimit } from 'async';
 import { URLSearchParams } from 'url';
-import CONST from '../constant';
+import { SOME_CONSTANT } from '../constant'; // Use named imports instead of default
 import { sign, makeid } from '../helpers';
+import { Buffer } from 'buffer'; // Import Buffer to resolve its usage
 
 import {
     PostCollector,
@@ -419,8 +420,8 @@ export class TikTokScraper extends EventEmitter {
                 }
             }
 
-            if (!this.scrapeType || CONST.scrape.indexOf(this.scrapeType) === -1) {
-                return this.returnInitError(`Missing scraping type. Scrape types: ${CONST.scrape} `);
+            if (!this.scrapeType || SOME_CONSTANT.scrape.indexOf(this.scrapeType) === -1) {
+                return this.returnInitError(`Missing scraping type. Scrape types: ${SOME_CONSTANT.scrape} `);
             }
             if (this.scrapeType !== 'trend' && !this.input) {
                 return this.returnInitError('Missing input');
@@ -825,7 +826,7 @@ export class TikTokScraper extends EventEmitter {
             }
 
             if (this.since && posts[i].createTime < this.since) {
-                result.done = CONST.chronologicalTypes.indexOf(this.scrapeType) !== -1;
+                result.done = SOME_CONSTANT.chronologicalTypes.indexOf(this.scrapeType) !== -1;
 
                 if (result.done) {
                     break;
