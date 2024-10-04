@@ -1521,21 +1521,12 @@ export class TikTokScraper extends EventEmitter {
         }
     }
 
-    async collectPosts(query: string, count: number): Promise<PostCollector[]> {
-        try {
-            const response = await this.makeApiRequest(query, count);
-            const apiResponse: TikTokApiResponse = JSON.parse(response);
-
-            if (apiResponse.code !== 0 || !apiResponse.data) {
-                throw new Error(`API request failed: ${apiResponse.msg}`);
-            }
-
-            return apiResponse.data.map(this.convertToPostCollector);
-        } catch (error) {
-            console.error('Error collecting posts:', error);
-            throw error;
-        }
+    private async makeApiRequest(query: string, count: number): Promise<string> {
+        // Implement the API request here
+        // This should return the raw JSON string from the API
+        throw new Error('Not implemented');
     }
+}
 
     private convertToPostCollector(video: TikTokVideo): PostCollector {
         return {
@@ -1571,10 +1562,5 @@ export class TikTokScraper extends EventEmitter {
             },
             // Add other fields as necessary
         };
-    }
-
-    private async makeApiRequest(query: string, count: number): Promise<string> {
-        // Implement the API request here
-        // This should return the raw JSON string from the API
     }
 }
