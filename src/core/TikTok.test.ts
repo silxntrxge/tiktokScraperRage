@@ -1,7 +1,7 @@
 import fs from 'fs';
-import { ScrapeType, Result, RequestQuery, UserMetadata, PostCollector, HashtagMetadata } from '../types';
+import { ScrapeType, TikTokConstructor, Result, RequestQuery, UserMetadata, PostCollector, HashtagMetadata } from '../types';
 import { TikTokScraper } from './TikTok';
-import CONST from '../constant';
+import { constants } from '../constant';
 
 jest.mock('request-promise-native');
 jest.mock('request-promise');
@@ -119,7 +119,7 @@ describe('TikTok Scraper MODULE(promise): user(invalid input data)', () => {
             proxy: '',
             number: 5,
         });
-        expect(instance.scrape()).rejects.toEqual(`Missing scraping type. Scrape types: ${CONST.scrape} `);
+        expect(instance.scrape()).rejects.toEqual(`Missing scraping type. Scrape types: ${constants.scrape} `);
     });
 });
 
@@ -164,7 +164,7 @@ describe('TikTok Scraper MODULE(event): user(invalid input data)', () => {
             event: true,
         });
         instance.on('error', data => {
-            expect(data).toEqual(`Missing scraping type. Scrape types: ${CONST.scrape} `);
+            expect(data).toEqual(`Missing scraping type. Scrape types: ${constants.scrape} `);
             done();
         });
         instance.scrape();
@@ -439,7 +439,7 @@ describe('TikTok Scraper MODULE(promise): getVideoMeta', () => {
             input: 'https://www.tiktok.com/@tiktok/video/6807491984882765062',
             type: 'video_meta',
             headers: {
-                'user-agent': CONST.userAgent(),
+                'user-agent': constants.userAgent(),
             },
             proxy: '',
             number: 5,

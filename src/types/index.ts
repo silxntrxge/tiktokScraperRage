@@ -3,7 +3,7 @@ export * from './Downloader';
 export * from './TikTokApi';
 export * from './Cli';
 
-// Ensure all necessary types are exported
+// Re-export types
 export type {
   DownloaderConstructor,
   DownloadParams,

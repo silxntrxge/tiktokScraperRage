@@ -55,16 +55,13 @@ export interface TikTokConstructor {
     download: boolean;
     filepath: string;
     filetype: string;
-    useTestEndpoints?: boolean;
-    proxy: string[] | string;
+    proxy?: string[] | string;
     strictSSL?: boolean;
     asyncDownload: number;
     asyncScraping: number;
     cli?: boolean;
-    zip?: boolean;
     event?: boolean;
     progress?: boolean;
-    bulk?: boolean;
     input: string;
     number: number;
     since: number;
@@ -75,14 +72,16 @@ export interface TikTokConstructor {
     noWaterMark?: boolean;
     fileName?: string;
     timeout?: number;
+    bulk?: boolean;
+    zip?: boolean;
     test?: boolean;
     hdVideo?: boolean;
-    signature?: string;
     webHookUrl?: string;
     method?: string;
     headers: Headers;
     verifyFp?: string;
     sessionList?: string[];
+    useTestEndpoints?: boolean;
 }
 
 export interface Hashtags {
@@ -161,6 +160,12 @@ export interface PostCollector {
     repeated?: boolean;
     downloaded: boolean;
     effectStickers: EffectStickers[];
+    videoUrl: string;
+    desc: string;
+    video: any; // Replace 'any' with the correct type
+    author: any; // Replace 'any' with the correct type
+    music: any; // Replace 'any' with the correct type
+    stats: any; // Replace 'any' with the correct type
 }
 
 export interface Result {
@@ -169,6 +174,7 @@ export interface Result {
     zip?: string;
     json?: string;
     csv?: string;
+    // Add any other missing properties
 }
 
 export interface Headers {

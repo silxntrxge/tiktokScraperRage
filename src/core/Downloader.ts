@@ -12,9 +12,9 @@ import { SocksProxyAgent } from 'socks-proxy-agent';
 import { forEachLimit } from 'async';
 import axios from 'axios';
 import cheerio from 'cheerio';
-
-import { MultipleBar } from '../helpers';
-import { DownloaderConstructor, PostCollector, DownloadParams, Proxy, Headers } from '../types';
+import { CookieJar } from 'request';
+import { OptionsWithUri } from 'request-promise';
+import { DownloaderConstructor, DownloadParams, Proxy, Headers, PostCollector } from '../types';
 
 export class Downloader {
     public progress: boolean;

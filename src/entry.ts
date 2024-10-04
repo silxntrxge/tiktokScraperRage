@@ -431,3 +431,6 @@ export const fromfile = async (input: string, options = {} as Options) => {
 
     return { table: result };
 };
+
+// Fix property access
+const userAgent = constants.userAgent || 'Your default user agent';
