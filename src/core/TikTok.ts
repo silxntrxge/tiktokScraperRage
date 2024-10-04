@@ -640,7 +640,7 @@ export class TikTokScraper extends EventEmitter {
 
             if (result.statusCode !== 0) {
                 console.error(`Error in API response. Status code: ${result.statusCode}`);
-                throw new Error(`Can't scrape more posts. Status code: ${result.statusCode});
+                throw new Error(`Can't scrape more posts. Status code: ${result.statusCode}`);
             }
 
             const { hasMore, maxCursor, cursor } = result;
@@ -697,9 +697,9 @@ export class TikTokScraper extends EventEmitter {
         let zip = '';
 
         if (this.collector.length) {
-            json = `${this.fileDestination}.json`;
-            csv = `${this.fileDestination}.csv`;
-            zip = this.zip ? `${this.fileDestination}.zip` : this.folderDestination;
+            json = this.fileDestination + '.json';
+            csv = this.fileDestination + '.csv';
+            zip = this.zip ? this.fileDestination + '.zip' : this.folderDestination;
 
             await this.saveMetadata({ json, csv });
         }
@@ -763,7 +763,7 @@ export class TikTokScraper extends EventEmitter {
      * Only available from the CLI
      */
     private async storeDownloadProgress() {
-        const historyType = this.scrapeType === 'trend' ? 'trend' : `${this.scrapeType}_${this.input}`;
+        const historyType = this.scrapeType === 'trend' ? 'trend' : this.scrapeType + '_' + this.input;
         const totalNewDownloadedVideos = this.collector.filter(item => item.downloaded).length;
 
         if (this.storeValue && totalNewDownloadedVideos) {
@@ -882,7 +882,7 @@ export class TikTokScraper extends EventEmitter {
                         origin: posts[i].video.originCover,
                         dynamic: posts[i].video.dynamicCover,
                     },
-                    webVideoUrl: `https://www.tiktok.com/@${posts[i].author.uniqueId}/video/${posts[i].id}`,
+                    webVideoUrl: 'https://www.tiktok.com/@' + posts[i].author.uniqueId + '/video/' + posts[i].id,
                     videoUrl: posts[i].video.downloadAddr,
                     videoUrlNoWaterMark: '',
                     videoApiUrlNoWaterMark: '',
