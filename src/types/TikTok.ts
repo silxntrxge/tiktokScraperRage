@@ -176,3 +176,47 @@ export interface Headers {
     referer?: string;
     cookie?: string;
 }
+
+export interface TikTokVideo {
+    aweme_id: string;
+    video_id: string;
+    region: string;
+    title: string;
+    cover: string;
+    ai_dynamic_cover: string;
+    origin_cover: string;
+    duration: number;
+    play: string;
+    wmplay: string;
+    music: string;
+    music_info: {
+        id: string;
+        title: string;
+        play: string;
+        cover: string;
+        author: string;
+        original: boolean;
+        duration: number;
+        album: string;
+    };
+    play_count: number;
+    digg_count: number;
+    comment_count: number;
+    share_count: number;
+    download_count: number;
+    create_time: number;
+    author: {
+        id: string;
+        unique_id: string;
+        nickname: string;
+        avatar: string;
+    };
+    // Add other fields as necessary
+}
+
+export interface TikTokApiResponse {
+    code: number;
+    msg: string;
+    processed_time: number;
+    data: TikTokVideo[];
+}

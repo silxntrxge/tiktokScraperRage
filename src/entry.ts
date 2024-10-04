@@ -19,7 +19,7 @@ import {
     HistoryItem,
     MusicMetadata,
 } from './types';
-import { SOME_CONSTANT } from './constant'; // Use named imports instead of default
+import { constants } from './constant';
 import { makeVerifyFp } from './helpers';
 
 const getInitOptions = () => {
@@ -43,7 +43,7 @@ const getInitOptions = () => {
         signature: '',
         verifyFp: makeVerifyFp(),
         headers: {
-            'user-agent': SOME_CONSTANT.userAgent(),
+            'user-agent': constants.userAgent(),
             referer: 'https://www.tiktok.com/',
         },
     };

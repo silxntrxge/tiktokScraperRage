@@ -1,3 +1,5 @@
+export {};
+
 declare module 'request' {
     export interface OptionsWithUri {
         uri: string;
@@ -28,3 +30,8 @@ declare module 'tiktok-scraper' {
 
 declare module 'request';
 declare module '../utils/protobuf';
+
+// Define your global types here
+declare global {
+    // Your type definitions
+}

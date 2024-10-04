@@ -1,6 +1,4 @@
-export const SOME_CONSTANT = 'value';
-
-export = {
+export default {
     scrape: [
         'user',
         'hashtag',
@@ -60,3 +58,5 @@ export = {
         ) + 87}.0.${Math.floor(Math.random() * 190) + 4100}.${Math.floor(Math.random() * 50) + 140} Safari/537.36`;
     },
 };
+
+export const SOME_CONSTANT = 'value';

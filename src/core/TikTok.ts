@@ -13,7 +13,7 @@ import EventEmitter from 'events';
 import { SocksProxyAgent } from 'socks-proxy-agent';
 import { forEachLimit } from 'async';
 import { URLSearchParams } from 'url';
-import { SOME_CONSTANT } from '../constant'; // Use named imports instead of default
+import { constants } from '../constant';
 import { sign, makeid } from '../helpers';
 import { Buffer } from 'buffer'; // Import Buffer to resolve its usage
 
@@ -38,6 +38,7 @@ import {
 
 import { Downloader } from '../core';
 import { loadProtoFile, encodeMessage, decodeMessage } from '../utils/protobuf';
+import { TikTokApiResponse, TikTokVideo } from '../types/tiktok';
 
 export class TikTokScraper extends EventEmitter {
     private mainHost: string;
@@ -420,8 +421,8 @@ export class TikTokScraper extends EventEmitter {
                 }
             }
 
-            if (!this.scrapeType || SOME_CONSTANT.scrape.indexOf(this.scrapeType) === -1) {
-                return this.returnInitError(`Missing scraping type. Scrape types: ${SOME_CONSTANT.scrape} `);
+            if (!this.scrapeType || constants.scrape.indexOf(this.scrapeType) === -1) {
+                return this.returnInitError(`Missing scraping type. Scrape types: ${constants.scrape} `);
             }
             if (this.scrapeType !== 'trend' && !this.input) {
                 return this.returnInitError('Missing input');
@@ -466,8 +467,12 @@ export class TikTokScraper extends EventEmitter {
                 ...(this.filetype === 'csv' ? { csv } : {}),
                 ...(this.webHookUrl ? { webhook: this.httpRequests } : {}),
             };
-        } catch (error) {
-            console.error(`Scraper error: ${error.message}`);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error(`Scraper error: ${error.message}`);
+            } else {
+                console.error('An unknown error occurred');
+            }
             throw error;
         }
     }
@@ -826,7 +831,7 @@ export class TikTokScraper extends EventEmitter {
             }
 
             if (this.since && posts[i].createTime < this.since) {
-                result.done = SOME_CONSTANT.chronologicalTypes.indexOf(this.scrapeType) !== -1;
+                result.done = constants.chronologicalTypes.indexOf(this.scrapeType) !== -1;
 
                 if (result.done) {
                     break;
@@ -1514,5 +1519,62 @@ export class TikTokScraper extends EventEmitter {
             console.error('Error scraping data from web:', error);
             return [];
         }
+    }
+
+    async collectPosts(query: string, count: number): Promise<PostCollector[]> {
+        try {
+            const response = await this.makeApiRequest(query, count);
+            const apiResponse: TikTokApiResponse = JSON.parse(response);
+
+            if (apiResponse.code !== 0 || !apiResponse.data) {
+                throw new Error(`API request failed: ${apiResponse.msg}`);
+            }
+
+            return apiResponse.data.map(this.convertToPostCollector);
+        } catch (error) {
+            console.error('Error collecting posts:', error);
+            throw error;
+        }
+    }
+
+    private convertToPostCollector(video: TikTokVideo): PostCollector {
+        return {
+            id: video.aweme_id,
+            desc: video.title,
+            createTime: video.create_time,
+            video: {
+                id: video.video_id,
+                cover: video.cover,
+                playAddr: video.play,
+                downloadAddr: video.wmplay,
+                duration: video.duration,
+            },
+            author: {
+                id: video.author.id,
+                uniqueId: video.author.unique_id,
+                nickname: video.author.nickname,
+                avatarThumb: video.author.avatar,
+            },
+            music: {
+                id: video.music_info.id,
+                title: video.music_info.title,
+                playUrl: video.music_info.play,
+                coverThumb: video.music_info.cover,
+                authorName: video.music_info.author,
+                original: video.music_info.original,
+            },
+            stats: {
+                diggCount: video.digg_count,
+                shareCount: video.share_count,
+                commentCount: video.comment_count,
+                playCount: video.play_count,
+            },
+            // Add other fields as necessary
+        };
+    }
+
+    private async makeApiRequest(query: string, count: number): Promise<string> {
+        // Implement the API request here
+        // This should return the raw JSON string from the API
     }
 }
