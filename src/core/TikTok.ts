@@ -15,7 +15,7 @@ import { forEachLimit } from 'async';
 import { URLSearchParams } from 'url';
 import { constants } from '../constant';
 import { sign, makeid } from '../helpers';
-import { Buffer } from 'buffer'; // Import Buffer to resolve its usage
+import { Buffer } from 'buffer';
 
 import {
     PostCollector,
@@ -640,7 +640,7 @@ export class TikTokScraper extends EventEmitter {
 
             if (result.statusCode !== 0) {
                 console.error(`Error in API response. Status code: ${result.statusCode}`);
-                throw new Error(`Can't scrape more posts. Status code: ${result.statusCode}`);
+                throw new Error(`Can't scrape more posts. Status code: ${result.statusCode});
             }
 
             const { hasMore, maxCursor, cursor } = result;

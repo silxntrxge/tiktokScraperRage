@@ -2,81 +2,88 @@ import { CookieJar } from 'request';
 import { Ora } from 'ora';
 
 export interface PostCollector {
-  // Define the structure
+  id: string;
+  desc: string;
+  createTime: number;
+  video: {
+    id: string;
+    cover: string;
+    playAddr: string;
+    downloadAddr: string;
+    duration: number;
+  };
+  author: {
+    id: string;
+    uniqueId: string;
+    nickname: string;
+    avatarThumb: string;
+  };
+  music: {
+    id: string;
+    title: string;
+    playUrl: string;
+    coverThumb: string;
+    authorName: string;
+    original: boolean;
+  };
+  stats: {
+    diggCount: number;
+    shareCount: number;
+    commentCount: number;
+    playCount: number;
+  };
+  downloaded: boolean;
+  videoUrlNoWaterMark?: string;
+  videoApiUrlNoWaterMark?: string;
 }
 
 export type ScrapeType = 'user' | 'hashtag' | 'trend' | 'music' | 'video';
 
 export interface TikTokConstructor {
-  // Define the structure
+  download: boolean;
+  filepath: string;
+  filetype: string;
+  proxy: string | string[];
+  strictSSL: boolean;
+  asyncDownload: number;
+  cli: boolean;
+  event: boolean;
+  progress: boolean;
+  input: string;
+  number: number;
+  since: number;
+  type: ScrapeType;
+  by_user_id: boolean;
+  store_history: boolean;
+  historyPath: string;
+  noWaterMark: boolean;
+  useTestEndpoints: boolean;
+  fileName: string;
+  timeout: number;
+  bulk: boolean;
+  zip: boolean;
+  test: boolean;
+  hdVideo: boolean;
+  webHookUrl: string;
+  method: string;
+  headers: Headers;
+  verifyFp: string;
+  sessionList: string[];
 }
 
 export interface Result {
-  // Define the structure
+  collector: PostCollector[];
+  // Add other properties as needed
 }
 
-export interface MusicMetadata {
-  // Define the structure
-}
-
-export interface RequestQuery {
-  // Define the structure
-}
-
-export interface History {
-  // Define the structure
-}
-
-export interface Proxy {
-  // Define the structure
-}
-
-export interface FeedItems {
-  // Define the structure
-}
-
-export interface ItemListData {
-  // Define the structure
-}
-
-export interface TikTokMetadata {
-  // Define the structure
-}
-
-export interface UserMetadata {
-  // Define the structure
-}
-
-export interface HashtagMetadata {
-  // Define the structure
-}
+// Add other necessary interfaces (MusicMetadata, RequestQuery, History, Proxy, FeedItems, ItemListData, TikTokMetadata, UserMetadata, HashtagMetadata, Headers, WebHtmlUserMetadata, VideoMetadata)
 
 export interface Headers {
-  // Define the structure
-}
-
-export interface WebHtmlUserMetadata {
-  // Define the structure
-}
-
-export interface VideoMetadata {
-  // Define the structure
-}
-
-export interface DownloaderConstructor {
-  // Define the structure
-}
-
-export interface DownloadParams {
-  // Define the structure
+  // Define header properties
 }
 
 export interface Options {
-  // Define the structure
-}
-
-export interface HistoryItem {
-  // Define the structure
+  // Define options properties
 }
 
 // Add other necessary type definitions
