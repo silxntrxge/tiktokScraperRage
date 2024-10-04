@@ -955,7 +955,11 @@ export class TikTokScraper extends EventEmitter {
         try {
             await this.request<string>(options);
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('An unknown error occurred');
+            }
         }
     }
 
@@ -979,7 +983,11 @@ export class TikTokScraper extends EventEmitter {
             const response = await this.request<T>(options);
             return response;
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('An unknown error occurred');
+            }
         }
     }
 
@@ -1075,7 +1083,11 @@ export class TikTokScraper extends EventEmitter {
                 verifyFp: this.verifyFp,
             };
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('An unknown error occurred');
+            }
         }
     }
 
@@ -1119,7 +1131,11 @@ export class TikTokScraper extends EventEmitter {
                 is_fullscreen: false,
             };
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('An unknown error occurred');
+            }
         }
     }
 
@@ -1180,7 +1196,11 @@ export class TikTokScraper extends EventEmitter {
             }
             return response.challengeInfo;
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('An unknown error occurred');
+            }
         }
     }
 
@@ -1234,7 +1254,11 @@ export class TikTokScraper extends EventEmitter {
             }
             return response.musicInfo;
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('An unknown error occurred');
+            }
         }
     }
 
@@ -1286,7 +1310,11 @@ export class TikTokScraper extends EventEmitter {
 
             throw new Error('No available parser for html page')
         } catch (error) {
-            throw new Error(`Can't extract video metadata: ${this.input}`);
+            if (error instanceof Error) {
+                throw new Error(`Can't extract video metadata: ${this.input}`);
+            } else {
+                throw new Error('An unknown error occurred');
+            }
         }
     }
 
